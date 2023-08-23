@@ -1,0 +1,165 @@
+{
+   "openapi": "3.0.0",
+   "info": {
+      "title": "Dr Pizza API for Swagger Documentation",
+      "contact": {
+         "email": "jfelipe16@gmail.com"
+      },
+      "version": "1.0.0"
+   },
+   "schemes": ["http"],
+   "servers": [{ "url": "http://localhost:3333/" }],
+   "paths": {
+      "/user": {
+         "post": {
+            "tags": ["Usuario"],
+            "description": "Create user",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "aplication/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/UserRequest"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "aplication/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/UserResponse"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "content": {
+                     "aplication/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorResponse"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/login": {
+         "post": {
+            "tags": ["Login"],
+            "description": "Login",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "aplication/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/AuthRequest"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "aplication/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/AuthResponse"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "content": {
+                     "aplication/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorResponse"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   },
+   "components": {
+      "schemas": {
+         "UserRequest": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "example": "Your name"
+               },
+               "email": {
+                  "type": "string",
+                  "example": "Your email"
+               },
+               "password": {
+                  "type": "string",
+                  "example": "Create a password"
+               }
+            }
+         },
+         "UserResponse": {
+            "properties": {
+               "id": {
+                  "type": "string",
+                  "example": "User id"
+               },
+               "name": {
+                  "type": "string",
+                  "example": "User name"
+               },
+               "email": {
+                  "type": "string",
+                  "example": "User email"
+               }
+            }
+         },
+         "AuthRequest": {
+            "properties": {
+               "email": {
+                  "type": "string",
+                  "example": "User email"
+               },
+               "password": {
+                  "type": "string",
+                  "example": "User password"
+               }
+            }
+         },
+         "AuthResponse": {
+            "properties": {
+               "id": {
+                  "type": "string",
+                  "example": "User id"
+               },
+               "name": {
+                  "type": "string",
+                  "example": "User name"
+               },
+               "email": {
+                  "type": "string",
+                  "example": "User email"
+               },
+               "token": {
+                  "type": "string",
+                  "example": "User token"
+               }
+            }
+         },
+         "ErrorResponse": {
+            "properties": {
+               "error": {
+                  "type": "string"
+               }
+            }
+         }
+      }
+   }
+}
