@@ -1,5 +1,5 @@
 {
-   "openapi": "3.0.0",
+   "swagger": "2.0",
    "info": {
       "title": "Dr Pizza API for Swagger Documentation",
       "contact": {
@@ -9,40 +9,41 @@
    },
    "schemes": ["http"],
    "servers": [{ "url": "http://localhost:3333/" }],
+   "securityDefinitions": {
+      "bearerAuth": {
+         "name": "Authorization",
+         "in": "header",
+         "type": "apiKey",
+         "description": "JWT Authorization header"
+      }
+   },
    "paths": {
       "/user": {
          "post": {
             "tags": ["Usuario"],
             "description": "Create user",
-            "requestBody": {
-               "required": true,
-               "content": {
-                  "aplication/json": {
-                     "schema": {
-                        "$ref": "#/components/schemas/UserRequest"
-                     }
+            "consumes": "application/json",
+            "parameters": [
+               {
+                  "required": true,
+                  "in": "body",
+                  "name": "user",
+                  "schema": {
+                     "$ref": "#/definitions/UserRequest"
                   }
                }
-            },
+            ],
             "responses": {
                "200": {
                   "description": "Success",
-                  "content": {
-                     "aplication/json": {
-                        "schema": {
-                           "$ref": "#/components/schemas/UserResponse"
-                        }
-                     }
+                  "schema": {
+                     "$ref": "#/definitions/UserResponse"
                   }
                },
                "400": {
                   "description": "Bad Request",
-                  "content": {
-                     "aplication/json": {
-                        "schema": {
-                           "$ref": "#/components/schemas/ErrorResponse"
-                        }
-                     }
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
                   }
                }
             }
@@ -52,112 +53,135 @@
          "post": {
             "tags": ["Login"],
             "description": "Login",
-            "requestBody": {
-               "required": true,
-               "content": {
-                  "aplication/json": {
-                     "schema": {
-                        "$ref": "#/components/schemas/AuthRequest"
-                     }
+            "consumes": "application/json",
+            "parameters": [
+               {
+                  "required": true,
+                  "in": "body",
+                  "name": "auth",
+                  "schema": {
+                     "$ref": "#/definitions/AuthRequest"
                   }
                }
-            },
+            ],
             "responses": {
                "200": {
                   "description": "Success",
-                  "content": {
-                     "aplication/json": {
-                        "schema": {
-                           "$ref": "#/components/schemas/AuthResponse"
-                        }
-                     }
+                  "schema": {
+                     "$ref": "#/definitions/AuthResponse"
                   }
                },
                "400": {
                   "description": "Bad Request",
-                  "content": {
-                     "aplication/json": {
-                        "schema": {
-                           "$ref": "#/components/schemas/ErrorResponse"
-                        }
-                     }
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
                   }
+               }
+            }
+         }
+      },
+      "/user/info": {
+         "get": {
+            "tags": ["Usuario"],
+            "description": "User detail",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "name": "user_id",
+                  "required": true,
+                  "in": "query",
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/UserResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
                }
             }
          }
       }
    },
-   "components": {
-      "schemas": {
-         "UserRequest": {
-            "properties": {
-               "name": {
-                  "type": "string",
-                  "example": "Your name"
-               },
-               "email": {
-                  "type": "string",
-                  "example": "Your email"
-               },
-               "password": {
-                  "type": "string",
-                  "example": "Create a password"
-               }
+   "definitions": {
+      "UserRequest": {
+         "properties": {
+            "name": {
+               "type": "string",
+               "example": "Your name"
+            },
+            "email": {
+               "type": "string",
+               "example": "Your email"
+            },
+            "password": {
+               "type": "string",
+               "example": "Create a password"
             }
-         },
-         "UserResponse": {
-            "properties": {
-               "id": {
-                  "type": "string",
-                  "example": "User id"
-               },
-               "name": {
-                  "type": "string",
-                  "example": "User name"
-               },
-               "email": {
-                  "type": "string",
-                  "example": "User email"
-               }
+         }
+      },
+      "UserResponse": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "example": "User id"
+            },
+            "name": {
+               "type": "string",
+               "example": "User name"
+            },
+            "email": {
+               "type": "string",
+               "example": "User email"
             }
-         },
-         "AuthRequest": {
-            "properties": {
-               "email": {
-                  "type": "string",
-                  "example": "User email"
-               },
-               "password": {
-                  "type": "string",
-                  "example": "User password"
-               }
+         }
+      },
+      "AuthRequest": {
+         "properties": {
+            "email": {
+               "type": "string",
+               "example": "User email"
+            },
+            "password": {
+               "type": "string",
+               "example": "User password"
             }
-         },
-         "AuthResponse": {
-            "properties": {
-               "id": {
-                  "type": "string",
-                  "example": "User id"
-               },
-               "name": {
-                  "type": "string",
-                  "example": "User name"
-               },
-               "email": {
-                  "type": "string",
-                  "example": "User email"
-               },
-               "token": {
-                  "type": "string",
-                  "example": "User token"
-               }
+         }
+      },
+      "AuthResponse": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "example": "User id"
+            },
+            "name": {
+               "type": "string",
+               "example": "User name"
+            },
+            "email": {
+               "type": "string",
+               "example": "User email"
+            },
+            "token": {
+               "type": "string",
+               "example": "User token"
             }
-         },
-         "ErrorResponse": {
-            "properties": {
-               "error": {
-                  "type": "string"
-               }
+         }
+      },
+      "ErrorResponse": {
+         "properties": {
+            "error": {
+               "type": "string"
             }
          }
       }
