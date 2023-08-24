@@ -4,6 +4,11 @@ import { ListByCategoryService } from '../../services/product/ListByCategoryServ
 class ListByCategoryController {
    async handle(req: Request, res: Response) {
       const category_id = req.query.category_id as string;
+
+      if (!category_id) {
+         throw new Error("Category id wasn't informed!");
+      }
+
       const listByCategoryService = new ListByCategoryService();
       const products = await listByCategoryService.execute({ category_id });
 

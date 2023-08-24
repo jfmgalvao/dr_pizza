@@ -111,6 +111,153 @@
                }
             }
          }
+      },
+      "/category": {
+         "post": {
+            "tags": ["Categoria"],
+            "description": "Create category",
+            "consumes": "application/json",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "required": true,
+                  "in": "body",
+                  "name": "user",
+                  "schema": {
+                     "$ref": "#/definitions/CategoryRequest"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/CategoryResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
+      },
+      "/category/list": {
+         "get": {
+            "tags": ["Categoria"],
+            "description": "List categories",
+            "security": [{ "bearerAuth": [] }],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "$ref": "#/definitions/CategoryResponse"
+                     }
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
+      },
+      "/product": {
+         "post": {
+            "tags": ["Produto"],
+            "description": "Create product",
+            "consumes": "multipart/form-data",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "file",
+                  "type": "file"
+               },
+               {
+                  "required": true,
+                  "in": "formData",
+                  "name": "name",
+                  "type": "string"
+               },
+               {
+                  "required": true,
+                  "in": "formData",
+                  "name": "price",
+                  "type": "string"
+               },
+               {
+                  "required": true,
+                  "in": "formData",
+                  "name": "description",
+                  "type": "string"
+               },
+               {
+                  "required": true,
+                  "in": "formData",
+                  "name": "category_id",
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/ProductResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
+      },
+      "/product/find": {
+         "get": {
+            "tags": ["Produto"],
+            "description": "List products by category id",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "name": "category_id",
+                  "required": true,
+                  "in": "query",
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "$ref": "#/definitions/ProductResponse"
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
       }
    },
    "definitions": {
@@ -175,6 +322,62 @@
             "token": {
                "type": "string",
                "example": "User token"
+            }
+         }
+      },
+      "CategoryRequest": {
+         "properties": {
+            "name": {
+               "type": "string",
+               "example": "Category name"
+            }
+         }
+      },
+      "CategoryResponse": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "example": "Category id"
+            },
+            "name": {
+               "type": "string",
+               "example": "Category name"
+            }
+         }
+      },
+      "ProductResponse": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "example": "Product id"
+            },
+            "name": {
+               "type": "string",
+               "example": "Product name"
+            },
+            "price": {
+               "type": "string",
+               "example": "Product price"
+            },
+            "description": {
+               "type": "string",
+               "example": "Description product"
+            },
+            "banner": {
+               "type": "string",
+               "example": "Banner product"
+            },
+            "created_at": {
+               "type": "string",
+               "example": "Created date of product"
+            },
+            "updated_at": {
+               "type": "string",
+               "example": "Updated date of product"
+            },
+            "category_id": {
+               "type": "string",
+               "example": "Category id"
             }
          }
       },

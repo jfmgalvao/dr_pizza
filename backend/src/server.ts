@@ -9,7 +9,7 @@ import { router } from './router';
 
 const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb', strict: false, type: 'application/vnd.api+json' }));
 app.use(cors());
 app.use(router);
 app.use('/files', express.static(resolve(__dirname, '..', 'tmp')));
