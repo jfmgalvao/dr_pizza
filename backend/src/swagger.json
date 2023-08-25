@@ -258,6 +258,259 @@
                }
             }
          }
+      },
+      "/order": {
+         "post": {
+            "tags": ["Pedido"],
+            "description": "Create order",
+            "consumes": "application/json",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "required": true,
+                  "in": "body",
+                  "name": "user",
+                  "schema": {
+                     "$ref": "#/definitions/CreateOrderRequest"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/OrderResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         },
+         "delete": {
+            "tags": ["Pedido"],
+            "description": "Delete order",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "name": "order_id",
+                  "required": true,
+                  "in": "query",
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/OrderResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
+      },
+      "/order/item": {
+         "post": {
+            "tags": ["Pedido"],
+            "description": "Add item",
+            "consumes": "application/json",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "required": true,
+                  "in": "body",
+                  "name": "user",
+                  "schema": {
+                     "$ref": "#/definitions/ItemRequest"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/ItemResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         },
+         "delete": {
+            "tags": ["Pedido"],
+            "description": "Delete item",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "name": "item_id",
+                  "required": true,
+                  "in": "query",
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/ItemResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
+      },
+      "/order/send": {
+         "put": {
+            "tags": ["Pedido"],
+            "description": "Send order",
+            "consumes": "application/json",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "required": true,
+                  "in": "body",
+                  "name": "user",
+                  "schema": {
+                     "$ref": "#/definitions/OrderRequest"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/OrderResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
+      },
+      "/order/list": {
+         "get": {
+            "tags": ["Pedido"],
+            "description": "List orders",
+            "security": [{ "bearerAuth": [] }],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "$ref": "#/definitions/OrderResponse"
+                     }
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
+      },
+      "/order/detail": {
+         "get": {
+            "tags": ["Pedido"],
+            "description": "Order detail",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "name": "order_id",
+                  "required": true,
+                  "in": "query",
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/DetailOrderResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
+      },
+      "/order/finish": {
+         "put": {
+            "tags": ["Pedido"],
+            "description": "Finish order",
+            "consumes": "application/json",
+            "security": [{ "bearerAuth": [] }],
+            "parameters": [
+               {
+                  "required": true,
+                  "in": "body",
+                  "name": "user",
+                  "schema": {
+                     "$ref": "#/definitions/OrderRequest"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "schema": {
+                     "$ref": "#/definitions/OrderResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/ErrorResponse"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized"
+               }
+            }
+         }
       }
    },
    "definitions": {
@@ -378,6 +631,135 @@
             "category_id": {
                "type": "string",
                "example": "Category id"
+            }
+         }
+      },
+      "CreateOrderRequest": {
+         "properties": {
+            "table": {
+               "type": "number",
+               "example": "37"
+            },
+            "name": {
+               "type": "string",
+               "example": "Dr-Pizza"
+            }
+         }
+      },
+      "OrderResponse": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "example": "Order id"
+            },
+            "table": {
+               "type": "string",
+               "example": "Table number"
+            },
+            "status": {
+               "type": "boolean",
+               "example": "Order status"
+            },
+            "draft": {
+               "type": "boolean"
+            },
+            "name": {
+               "type": "string",
+               "example": "Order name"
+            },
+            "created_at": {
+               "type": "string",
+               "example": "Order created date"
+            },
+            "updated_at": {
+               "type": "string",
+               "example": "Order updated date"
+            }
+         }
+      },
+      "ItemRequest": {
+         "properties": {
+            "amount": {
+               "type": "number",
+               "example": "3"
+            },
+            "order_id": {
+               "type": "string",
+               "example": "4936f88b-c0fc-4af9-be41-32a98326c721"
+            },
+            "product_id": {
+               "type": "string",
+               "example": "fa0f01f3-c1c7-43ee-bb66-60cff05dbdf1"
+            }
+         }
+      },
+      "ItemResponse": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "example": "cee117b2-f377-4831-bdb8-b6b192bec8e8"
+            },
+            "amount": {
+               "type": "number",
+               "example": "3"
+            },
+            "created_at": {
+               "type": "string",
+               "example": "2023-08-25T01:52:57.165Z"
+            },
+            "updated_at": {
+               "type": "string",
+               "example": "2023-08-25T01:52:57.165Z"
+            },
+            "order_id": {
+               "type": "string",
+               "example": "4936f88b-c0fc-4af9-be41-32a98326c721"
+            },
+            "product_id": {
+               "type": "string",
+               "example": "fa0f01f3-c1c7-43ee-bb66-60cff05dbdf1"
+            }
+         }
+      },
+      "OrderRequest": {
+         "properties": {
+            "order_id": {
+               "type": "string",
+               "example": "4936f88b-c0fc-4af9-be41-32a98326c721"
+            }
+         }
+      },
+      "DetailOrderResponse": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "example": "cee117b2-f377-4831-bdb8-b6b192bec8e8"
+            },
+            "amount": {
+               "type": "number",
+               "example": "3"
+            },
+            "created_at": {
+               "type": "string",
+               "example": "2023-08-25T01:52:57.165Z"
+            },
+            "updated_at": {
+               "type": "string",
+               "example": "2023-08-25T01:52:57.165Z"
+            },
+            "order_id": {
+               "type": "string",
+               "example": "4936f88b-c0fc-4af9-be41-32a98326c721"
+            },
+            "product_id": {
+               "type": "string",
+               "example": "fa0f01f3-c1c7-43ee-bb66-60cff05dbdf1"
+            },
+            "product": {
+               "$ref": "#/definitions/ProductResponse"
+            },
+            "order": {
+               "$ref": "#/definitions/OrderResponse"
             }
          }
       },
