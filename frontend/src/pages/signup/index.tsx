@@ -1,35 +1,37 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useState, useContext } from "react";
+
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
-import { AuthContext } from "../contexts/AuthContext";
+import { Button } from "../../components/ui/Button";
+import { Input } from "../../components/ui/Input";
 
-import { Button } from "../components/ui/Button";
-import { Input } from "../components/ui/Input";
-
-import styles from "../../styles/home.module.scss";
-import logoImg from "../../public/logo.svg";
+import styles from "../../../styles/home.module.scss";
+import logoImg from "../../../public/logo.svg";
+import { AuthContext } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
 
-export default function Home() {
-  const { signIn } = useContext(AuthContext);
+export default function SignUp() {
+  const { signUp } = useContext(AuthContext);
+
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleLogin(event: FormEvent) {
+  async function handleSignUp(event: FormEvent) {
     event.preventDefault();
 
-    if (email === "" || password === "") {
-      toast.warn("PREENCHAR OS CAMPOS!");
+    if (name === "" || email === "" || password === "") {
+      toast.warn("PREENCHA TODOS OS CAMPOS!");
       return;
     }
 
     setLoading(true);
-    let data = { email, password };
 
-    await signIn(data);
+    let data = { name, email, password };
+    await signUp(data);
     setLoading(false);
   }
 
@@ -42,7 +44,15 @@ export default function Home() {
         <Image src={logoImg} alt="Logo Dr Pizza" />
 
         <div className={styles.login}>
-          <form onSubmit={handleLogin}>
+          <h1>Criando sua conta</h1>
+
+          <form onSubmit={handleSignUp}>
+            <Input
+              placeholder="Digite seu nome"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
             <Input
               placeholder="Digite seu email"
               type="text"
@@ -59,8 +69,9 @@ export default function Home() {
               Acessar
             </Button>
           </form>
-          <Link className={styles.text} href="/signup">
-            Não possui conta? Cadastre-se
+
+          <Link className={styles.text} href="/">
+            Já possui uma conta? Faça o login!
           </Link>
         </div>
       </div>
