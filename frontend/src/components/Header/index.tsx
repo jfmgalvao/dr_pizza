@@ -15,7 +15,7 @@ export function Header() {
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
         <Link href="/dashboard">
-          <img src="/logo.svg" width={80} height={80} />
+          <img src="/logo-header.svg" width={190} height={60} />
         </Link>
 
         <nav className={styles.menuNav}>
